@@ -15,25 +15,24 @@ Hãy cùng nhau phát triển 1 ứng dụng đơn giản gồm 1 vài khía c�
 
 Đây là 1 ví dụ tương tác đang chạy  [flems: Simple Application][1]
 
-Đầu tiên hãy tạo 1 điểm bắt đầu cho ứng dụng. Tạo 1 file `index.html`:
-    
-    
-    
-    
+Đầu tiên hãy tạo 1 điểm bắt đầu cho ứng dụng. Tạo 1 file `index.html`:     
         
-            
-            
-            
-        
-        
-            http://www.google-analytics.com/ga.js"> src="">https://mithril.js.org/bin/app.js">
+ <!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>My Application</title>
+    </head>
+    <body>
+        <script src="bin/app.js"></script>
+    </body>
+</html>
         
     
-    
+Dòng `<!doctype html>` chỉ định rằng đây là văn bản HTML 5. Thẻ meta tag `charsetz đầu tiên chỉ định  mã encode của tài liệu và thẻ meta tag `viewportz chỉ định cách trình duyệt điện thoại nên  chia tỉ lệ trang. Thẻ tag `title` chưa nội dung chữ được hiện thị trên tab trình duyệt cho ứng dụng này, và thẻ tag `script` chỉ thị đường dẫn đến file  JS kiểm soát ứng dụng.
 
-Dòng `` chỉ định rằng đây là văn bản HTML 5. Thẻ meta tag `charsetz đầu tiên chỉ định  mã encode của tài liệu và thẻ meta tag `viewportz chỉ định cách trình duyệt điện thoại nên  chia tỉ lệ trang. Thẻ tag `title` chưa nội dung chữ được hiện thị trên tab trình duyệt cho ứng dụng này, và thẻ tag `script` chỉ thị đường dẫn đến file  JS kiểm soát ứng dụng.
-
-Chúng ta có thể tạo toàn bộ ứng dụng trong 1 file JS đơn le, nhưng làm như vật có thể khiến sau này khó theo dõi code. Thay vào đó, hãy chia nhỏ code thành các  _modules_, và sau đó gom nhóm chúng vào 1  _bundle_ `bin/app.js`.
+Chúng ta có thể tạo toàn bộ ứng dụng trong 1 file JS đơn lẻ, nhưng làm như vậy có thể khiến sau này khó theo dõi code. Thay vào đó, hãy chia nhỏ code thành các  _modules_, và sau đó gom nhóm chúng vào 1  _bundle_ `bin/app.js`.
 
 Có nhiều cách để thiết lập 1 công cụ  bundler, nhưng hầu hết đều được cung cấp thông qua NPM. Trong thực tế, hầu hết các thứ viện và công cụ JS hiện đại đều được cung cấp bằng cách này, bao gồm cả Mithril. NPM là Node,js Package Manager. Để tải NPM, [install Node.js][2]; NPM sẽ được tự động cài cùng. Khi bạn đã cài Node.js và NPM, mở command line và chạy dòng lệnh sau: 
     
@@ -86,7 +85,7 @@ Tiếp theo chúng ta tạo 1 hàm sẽ  bắn ra 1 lời gọi XHR. Gọi hàm 
     module.exports = User
     
 
-Sau đó chúng ta có thể thêm 1 lời `m.request` để tạo 1 request XHR, Với bài hướng dẫn này, chúng ta sẽ tạo những lời gọi XHR đến API [REM][4], 1  Rest API bát chước được thiết kế  cho việc tạo mẫu nhanh chóng. API này trả về 1 danh sách các người dùng từ endpoint  `GET https://rem-rest-api.herokuapp.com/api/users`. Hãy sử dụng `m.request`  để tạo 1 request XHR và lưu dữ liệu với response của endpoint đó.
+Sau đó chúng ta có thể thêm 1 lời `m.request` để tạo 1 request XHR, Với bài hướng dẫn này, chúng ta sẽ tạo những lời gọi XHR đến API [REM][4], 1  Rest API bắt chước được thiết kế  cho việc tạo mẫu nhanh chóng. API này trả về 1 danh sách các người dùng từ endpoint  `GET https://rem-rest-api.herokuapp.com/api/users`. Hãy sử dụng `m.request`  để tạo 1 request XHR và lưu dữ liệu với response của endpoint đó.
     
     
     // src/models/User.js
@@ -108,11 +107,11 @@ Sau đó chúng ta có thể thêm 1 lời `m.request` để tạo 1 request XHR
     
     module.exports = User
     
-Tùy chọn `method` là 1  [HTTP method][5]. Để lấy dữ liệu từ server mà không bị ảnh hưởng bởi các ảnh hưởng phụ trên server, chúng ta cần sử dụng phương thức `GET`. `url` là địa chỉ của  endpoint aPI. `withCredentials: true` chỉ định rằng chúng ta đang sử dụng cookies(đây là 1 yêu cầu với REM API)
+Tùy chọn `method` là 1  [HTTP method][5]. Để lấy dữ liệu từ server mà không bị ảnh hưởng bởi các ảnh hưởng phụ trên server, chúng ta cần sử dụng phương thức `GET`. `url` là địa chỉ của  endpoint API. `withCredentials: true` chỉ định rằng chúng ta đang sử dụng cookies(đây là 1 yêu cầu với REM API)
 
 Lời gọi `m.request` trả về 1 Promise sẽ reolve dữ liệu từ endpoint. Mặc định , Mithril coi body của response HTTP ở định dạng JSON và tự động chuyển nó về dạng đối tượng hoặc mạng JS. Sau đó callback `.then` sẽ chạy khi XHR request hoàn thành. Trong trường hợp này, callback gán mảng `result.data` vào `User.list`
 
-Hãy để ý rằng chúng ta chúng có 1 câu `return` trong `loadList`. Đây là 1 việc làm thường thấy rất tốt khi làm việc với Promises, điều này cho phép chúng ta đăng ký nhiều callback để chạy sau khi request XHR hoàn thành.
+Hãy để ý rằng chúng ta có 1 câu `return` trong `loadList`. Đây là 1 việc làm thường thấy rất tốt khi làm việc với Promises, điều này cho phép chúng ta đăng ký nhiều callback để chạy sau khi request XHR hoàn thành.
 
 Mô hình đơn giản này có 2 thành phần: User.list ( 1 mảng các đối tượng người dùng), và User,loadList ( 1 phương thức lấy User.list với dữ liệu server)
 
@@ -199,7 +198,7 @@ Dĩ nhiên, vấn đề là chúng ta không bao giờ gọi hàm `User.loadList
 
 Chú ý rằng chúng ta thêm 1 phương thức `oninit` vào thành phần,  quan hệ với `User.loadList`.Điều này có nghĩa là khi thành phần được khởi tạo, User.loadList sẽ được gọi, dẫn tới 1 XHR request. KHi server trả về 1 response, `User.list` sẽ được gán dữ liệu.
 
-Và cũng chú ý rằng chúng ta không thực hiện `oninit: User.loadList()` (với dấu ngoặc đơn ở cuối.) Sự khác biệt ở đây là `oninit: User.loadList()`  gọi hàm 1 lần và ngay lập tức, nhưng `oninit: User.loadList()`  chỉ được gọi khi thành phần render. Đây là 1 điều khác biệt quan trọng và 1 bẫy phổ biến với những dev mới làm quen JS: gọi hàm ngay lập tức nghĩa là XHR request sẽ được bắn ra ngay khi source code được thực thi, ngay cả khi thành phần không bao giờ được render. Cũng như là khi thành phần không bao giờ được tạo ( mặc  dù điều hướng qua lại trong ứng dụng), hàm sẽ không được gọi lại như mong đợi.
+Và cũng chú ý rằng chúng ta không thực hiện `oninit: User.loadList()` (với dấu ngoặc đơn ở cuối.) Sự khác biệt ở đây là `oninit: User.loadList()`  gọi hàm 1 lần và ngay lập tức, nhưng `oninit: User.loadList`  chỉ được gọi khi thành phần render. Đây là 1 điều khác biệt quan trọng và 1 bẫy phổ biến với những dev mới làm quen JS: gọi hàm ngay lập tức nghĩa là XHR request sẽ được bắn ra ngay khi source code được thực thi, ngay cả khi thành phần không bao giờ được render. Cũng như là khi thành phần không bao giờ được tạo ( mặc  dù điều hướng qua lại trong ứng dụng), hàm sẽ không được gọi lại như mong đợi.
 
 * * *
 
@@ -247,7 +246,7 @@ Giờ chung ta có thể style thành phần `UserList` :
     .user-list-item:hover {text-decoration:underline;}
     
 
- CSS ở trên được viết bằng cách sử dụng một quy ước giữ tất cả các kiểu cho một quy tắc trong một dòng, theo thứ tự bảng chữ cái. Quy ước này được thiết kế để tận dụng tối đa bất động sản màn hình và dễ dàng quét các bộ chọn CSS (vì chúng luôn ở bên trái) và nhóm logic của chúng, và nó thực thi các quy tắc CSS có thể dự đoán và thống nhất cho mỗi bộ chọn .
+ CSS ở trên được viết bằng cách sử dụng một quy ước giữ tất cả các kiểu cho một quy tắc trong một dòng, theo thứ tự bảng chữ cái. Quy ước này được thiết kế để tận dụng tối đa khoảng trống hình và dễ dàng quét các bộ chọn CSS (vì chúng luôn ở bên trái) và nhóm logic của chúng, và nó thực thi các quy tắc CSS có thể dự đoán và thống nhất cho mỗi bộ chọn .
 
 Rõ ràng bạn có thể sử dụng bất kỳ khoảng cách / indentation ước bạn thích. Ví dụ trên chỉ là một minh họa của một quy ước không phổ biến rộng rãi có các lý do mạnh mẽ đằng sau nó, nhưng đi chệch khỏi các quy ước khoảng cách làm mịn hơn
 
@@ -382,7 +381,7 @@ Ngay bây giờ, thành phần này không làm gì khi trả lời các sự ki
     module.exports = User
     
 
-Hãy thêm mã để cho phép chúng tôi tải một người dùng
+Hãy thêm mã để cho phép chúng ta tải một người dùng
     
     
     // src/models/User.js
@@ -438,9 +437,9 @@ Lưu ý rằng chúng ta đã thêm một thuộc tính User.current và một p
     }
     
 
-Tương tự như thành phần UserList, oninit gọi User.load (). Hãy nhớ rằng chúng tôi đã có thông số tuyến đường được gọi là: id trên "/ edit /: id": tuyến đường UserForm? Tham số tuyến đường trở thành thuộc tính của vnode của thành phần UserForm, do đó định tuyến đến / edit / 1 sẽ làm cho vnode.attrs.id có giá trị là "1".
+Tương tự như thành phần UserList, oninit gọi User.load (). Hãy nhớ rằng chúng ta đã có thông số tuyến đường được gọi là: id trên "/ edit /: id": tuyến đường UserForm? Tham số tuyến đường trở thành thuộc tính của vnode của thành phần UserForm, do đó định tuyến đến / edit / 1 sẽ làm cho vnode.attrs.id có giá trị là "1".
 
-Bây giờ, hãy sửa đổi chế độ xem Danh sách người dùng để chúng tôi có thể điều hướng từ đó đến UserForm:
+Bây giờ, hãy sửa đổi chế độ xem Danh sách người dùng để chúng ta có thể điều hướng từ đó đến UserForm:
     
     
     // src/views/UserList.js
@@ -457,7 +456,7 @@ Bây giờ, hãy sửa đổi chế độ xem Danh sách người dùng để ch
     }
     
 
-Ở đây chúng ta đã thay đổi .user-list-item thành a.user-list-item. Chúng tôi đã thêm một href tham chiếu tuyến đường mà chúng tôi muốn và cuối cùng chúng tôi đã thêm oncreate: m.route.link. Điều này làm cho liên kết hoạt động giống như một liên kết định tuyến (trái ngược với việc chỉ hoạt động giống như một liên kết thông thường). Điều này có nghĩa là việc nhấp vào liên kết sẽ thay đổi một phần của URL xuất hiện sau hashbang #! (do đó thay đổi tuyến đường mà không dỡ tải trang HTML hiện tại)
+Ở đây chúng ta đã thay đổi .user-list-item thành a.user-list-item. Chúng ta thêm một href tham chiếu tuyến đường mà chúng ta muốn và cuối cùng chúng ta thêm oncreate: m.route.link. Điều này làm cho liên kết hoạt động giống như một liên kết định tuyến (trái ngược với việc chỉ hoạt động giống như một liên kết thông thường). Điều này có nghĩa là việc nhấp vào liên kết sẽ thay đổi một phần của URL xuất hiện sau hashbang #! (do đó thay đổi tuyến đường mà không dỡ tải trang HTML hiện tại)
 
 Nếu bạn làm mới trang trong trình duyệt, bây giờ bạn có thể nhấp vào một người và được đưa đến một biểu mẫu. Bạn cũng có thể nhấn nút quay lại trong trình duyệt để quay lại từ biểu mẫu tới danh sách mọi người.
 
@@ -495,9 +494,9 @@ Bản thân biểu mẫu vẫn không lưu khi bạn nhấn "Lưu". Hãy làm ch
     }
     
 
-Chúng tôi đã thêm các sự kiện oninput vào cả hai đầu vào, đặt thuộc tính User.current.firstName và User.current.lastName khi người dùng nhập.
+Chúng ta thêm các sự kiện oninput vào cả hai đầu vào, đặt thuộc tính User.current.firstName và User.current.lastName khi người dùng nhập.
 
-Ngoài ra, chúng tôi đã tuyên bố rằng phương thức User.save nên được gọi khi nhấn nút “Lưu”. Hãy thực hiện phương thức đó:
+Ngoài ra, chúng ta tuyên bố rằng phương thức User.save nên được gọi khi nhấn nút “Lưu”. Hãy thực hiện phương thức đó:
     
     
     // src/models/User.js
@@ -541,7 +540,7 @@ Ngoài ra, chúng tôi đã tuyên bố rằng phương thức User.save nên đ
     module.exports = User
     
 
-Trong phương thức lưu ở dưới cùng, chúng tôi đã sử dụng phương pháp PUT HTTP để chỉ ra rằng chúng tôi đang upserting dữ liệu đến máy chủ.
+Trong phương thức lưu ở dưới cùng, chúng ta sử dụng phương pháp PUT HTTP để chỉ ra rằng chúng ta đang upserting dữ liệu đến máy chủ.
 
 Bây giờ hãy thử chỉnh sửa tên của người dùng trong ứng dụng. Khi bạn lưu thay đổi, bạn sẽ có thể thấy thay đổi được phản ánh trong danh sách người dùng.
 
@@ -549,7 +548,7 @@ Bây giờ hãy thử chỉnh sửa tên của người dùng trong ứng dụng
 
 * * *
 
-Hiện tại, chúng ta chỉ có thể điều hướng trở lại danh sách người dùng qua nút quay lại trình duyệt. Lý tưởng nhất, chúng tôi muốn có một trình đơn - hoặc tổng quát hơn, một bố cục nơi chúng tôi có thể đặt các yếu tố giao diện người dùng toàn cầu
+Hiện tại, chúng ta chỉ có thể điều hướng trở lại danh sách người dùng qua nút quay lại trình duyệt. Lý tưởng nhất, tôi muốn có một trình đơn - hoặc tổng quát hơn, một bố cục nơi tôi có thể đặt các yếu tố giao diện người dùng toàn cầu
 
 Hãy tạo 1 file `src/views/Layout.js`:
     
@@ -571,7 +570,7 @@ Hãy tạo 1 file `src/views/Layout.js`:
 
 Thành phần này khá đơn giản, nó có một liên kết đến danh sách người dùng. Tương tự như những gì chúng tôi đã làm cho các liên kết / chỉnh sửa, liên kết này sử dụng m.route.link để kích hoạt hành vi định tuyến trong liên kết.
 
-Lưu ý rằng cũng có một phần tử với vnode.children là trẻ em. vnode là một tham chiếu đến vnode đại diện cho một thể hiện của thành phần Layout (tức là vnode được trả về bởi một cuộc gọi m (Layout)). Vì vậy, vnode.children đề cập đến bất kỳ trẻ em nào của vnode đó.
+Lưu ý rằng cũng có một phần tử với vnode.children con của.vnode là một tham chiếu đến vnode đại diện cho một thể hiện của thành phần Layout (tức là vnode được trả về bởi một cuộc gọi m (Layout)). Vì vậy, vnode.children đề cập đến bất kỳ trẻ em nào của vnode đó.
 
 Hãy thêm một số style:
     
